@@ -1,35 +1,31 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { AuthProvider } from './context/AuthContext';
-import PrivateRoute from './components/PrivateRoute';
-import Navbar from './components/Navbar';
-import Home from './pages/Home';
-import Catalog from './pages/Catalog';
-import AdminPanel from './pages/AdminPanel';
-import Login from './pages/Login';
-import Register from './pages/Register';
+import Navegacion from './componentes/Diseño/Navegacion';
+import PaginaInicio from './paginas/PaginaInicio';
+import ListaVehiculos from './componentes/Vehiculos/ListaVehiculos';
+import DetalleVehiculo from './componentes/Vehiculos/DetalleVehiculo';
+import Registro from './componentes/Autenticacion/Registro';
+import Login from './componentes/Autenticacion/Login';
+import FormularioVehiculo from './componentes/Administrador/FormularioVehiculo';
+import Pie from './componentes/Diseño/Pie';
+import './App.css';
 
 function App() {
   return (
-    <AuthProvider>
-      <Router>
-        <Navbar />
+    <Router>
+      <div className="App">
+        <Navegacion />
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/catalog" element={<Catalog />} />
+          <Route path="/" element={<PaginaInicio />} />
+          <Route path="/vehiculos" element={<ListaVehiculos />} />
+          <Route path="/vehiculos/:id" element={<DetalleVehiculo />} />
+          <Route path="/registro" element={<Registro />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route 
-            path="/admin/*" 
-            element={
-              <PrivateRoute>
-                <AdminPanel />
-              </PrivateRoute>
-            } 
-          />
+          <Route path="/nuevo-vehiculo" element={<FormularioVehiculo />} />
         </Routes>
-      </Router>
-    </AuthProvider>
+        <Pie />
+      </div>
+    </Router>
   );
 }
 
