@@ -1,14 +1,14 @@
 import axios from 'axios';
 
-const URL_API_VEHICULOS = 'http://localhost:5000/api/vehiculos';
+const API_URL = process.env.REACT_APP_API_URL || 'http://192.168.1.100:5000';
 
 export const obtenerVehiculos = async () => {
-    const respuesta = await axios.get(URL_API_VEHICULOS);
+    const respuesta = await axios.get(`${API_URL}/api/vehiculos`);
     return respuesta.data;
 };
 
 export const crearVehiculo = async (datosVehiculo) => {
-    const respuesta = await axios.post(URL_API_VEHICULOS, datosVehiculo, {
+    const respuesta = await axios.post(`${API_URL}/api/vehiculos`, datosVehiculo, {
         headers: {
             'Content-Type': 'multipart/form-data'
         }
@@ -17,6 +17,6 @@ export const crearVehiculo = async (datosVehiculo) => {
 };
 
 export const obtenerVehiculoPorId = async (id) => {
-    const respuesta = await axios.get(`${URL_API_VEHICULOS}/${id}`);
+    const respuesta = await axios.get(`${API_URL}/api/vehiculos/${id}`);
     return respuesta.data;
 };

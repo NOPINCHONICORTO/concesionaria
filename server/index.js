@@ -1,22 +1,24 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-const vehiculosRoutes = require('./routes/vehiculos');
 
 const app = express();
-const PORT = 5000;
 
-// Middlewares
-app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+// Configuración de CORS para red local
+app.use(cors({
+    origin: [
+        'http://localhost:3000', 
+        'http://192.168.1.100:3000',
+        'http://127.0.0.1:3000'
+    ],
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
 
-// Ruta para cargar imágenes de la carpeta 'uploads'
-app.use('/uploads', express.static('uploads'));
+const PORT = process.env.PORT || 5000;
+const HOST = '0.0.0.0';
 
-// Rutas
-app.use('/api', vehiculosRoutes);
-
-// Iniciar servidor
-app.listen(PORT, () => {
-    console.log(`Servidor corriendo en http://localhost:${PORT}`);
+app.listen(PORT, HOST, () => {
+    console.log(`Servidor corriendo en http://${HOST}:${PORT}`);
+    console.log(`Accesible localmente en http://192.168.1.100:${PORT}`);
 });
